@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Babylonica&family=Chakra+Petch:ital,wght@1,300&family=Cookie&family=Dancing+Script&family=Exo+2:wght@200&family=Great+Vibes&family=Merriweather:ital,wght@1,300&family=Mrs+Saint+Delafield&family=Mynerve&family=Poppins:ital,wght@1,100&family=Righteous&family=Rock+Salt&family=Satisfy&family=Zeyada&display=swap');
+
+*{
+    font-family: 'Chakra Petch', sans-serif;
+}
+.navbar{
+    position: sticky;
+    top:0px;
+    z-index: 10;
+}

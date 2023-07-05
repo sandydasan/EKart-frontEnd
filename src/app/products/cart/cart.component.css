@@ -1,0 +1,53 @@
+.details{
+    text-align: center;
+    
+}
+h4{
+    font-weight: 800;
+}
+span{
+    color: green;
+    font-weight: bolder;
+    font-size: medium;
+}
+h6{
+    margin-left: 10px;
+}
+h5{
+    text-decoration: line-through;
+}
+input[type="number"] {
+    width: 50px; /* Adjust the width as per your requirement */
+    height: 30px; /* Adjust the height as per your requirement */
+  }
+  .input-with-buttons {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+  }
+  
+   .input-field {
+    padding-right: 30px; /* Adjust the padding as needed */
+   }
+   */
+  .increment-button,
+  .decrement-button {
+    text-decoration: none;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 25px; /* Adjust the button size as needed */
+    height: 25px; /* Adjust the button size as needed */
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .increment-button {
+    right: 0;
+  }
+  
+  .decrement-button {
+    right: 35px; /* Adjust the button position as needed */
+  }
+  
+  

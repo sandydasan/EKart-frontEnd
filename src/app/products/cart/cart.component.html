@@ -1,0 +1,236 @@
+<!--empty cart-->
+<div class="container" *ngIf="allCart.length==0">
+    <div class="row ">
+        <div class="col text-center">
+            <img src="https://cdn.dribbble.com/users/5107895/screenshots/14532312/media/a7e6c2e9333d0989e3a54c95dd8321d7.gif" alt="">
+            <br>
+            <h1>Your Cart is Empty...Please Add Your Products</h1>
+            <br>
+
+            <button class="btn btn-dark m-2" routerLink="">Shop More</button>
+        </div>
+    </div>
+</div>
+
+<!--cart-->
+<!-- <div class="container" >
+    <div class="row">
+        <div class="col-6"  >
+             <table class="border border-2 border-dark m-3">
+                <thead>
+                    <tr>
+                        <th class="border border-2 border-dark">Product Id</th>
+                        <th class="border border-2 border-dark">Name</th>
+                        <th class="border border-2 border-dark">Image</th>
+                        <th class="border border-2 border-dark">Quantity</th>
+                        <th class="border border-2 border-dark">Price</th>
+                        <th class="border border-2 border-dark">Action</th>
+                       
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let cart of allCart let i=index">
+                        <td class="border border-2 border-dark">{{i+1}}</td>
+                        <td class="border border-2 border-dark">{{cart.title}}</td>
+                        <td class="border border-2 border-dark"><img [src]="cart.image" alt="" width="100%"></td>
+                        <td class="border border-2 border-dark">
+                            <div class="">
+                                <button class="btn fw-bolder d-flex" (click)="decrementCart(cart.id)">-</button>
+                                <input type="text" class="form-control" [value]="cart.quantity">
+                                <button class="btn fw-bolder" (click)="incrementCart(cart.id)">+</button>
+                            </div>
+                            
+                        </td>
+                        <td class="border border-2 border-dark">${{cart.grandTotal}}</td>
+                        <td class="border border-2 border-dark"><i class="fa-solid fa-trash text-danger" (click)="deleteCart(cart.id)"></i></td>
+                    </tr>
+                </tbody>
+            </table> 
+        </div>
+           
+        <div class="col-6 card shadow my-5 p-3">
+            <h1 class="text-center fw-bolder">Products Details</h1>
+            <h4>Price :${{totalPrice}}</h4>
+            <h2>Discount :50%</h2>
+            <h1>Your Grand Total : $</h1>
+        </div>
+    </div>
+</div> -->
+
+
+<div class="container m-5" *ngFor="let cart of allCart let i=index">
+    <div class="row ">
+      <div class="col  text-center">
+        <img [src]="cart.image" alt="" width="200px">
+      </div>
+      <div class="col">
+        <h4>{{cart.title}}</h4>
+        <br>
+        <i class="fa-solid fa-star text" style="color: #f06f19;"></i>
+        <i class="fa-solid fa-star" style="color: #f06f19;"></i>
+        <i class="fa-solid fa-star" style="color: #f06f19;"></i>
+        <i class="fa-solid fa-star" style="color: #f06f19;"></i>
+        <i class="fa-solid fa-star-half-stroke" style="color: #f06f19;"></i>
+        <br>
+        <span>50%</span>
+        <h5>$999 <span></span></h5>
+        
+        <!-- <div class="d-flex flex-row">
+            <button class="btn fw-bolder " (click)="decrementCart(cart.id)">-</button>
+            <input type="text" class="form-control" [value]="cart.quantity">
+            <button class="btn fw-bolder" (click)="incrementCart(cart.id)">+</button>
+        </div> -->
+        <div class="input-with-buttons">
+            <input type="number" id="input-number" class="input-field" [value]="cart.quantity" readonly>
+            <button class="increment-button" (click)="incrementCart(cart.id)">+</button>
+            <button class="decrement-button" (click)="decrementCart(cart.id)">-</button>
+          </div>
+          
+        <p class="text-danger"(click)="deleteCart(cart.id)">Remove</p>
+      </div>
+
+      <div class="col  text-center">
+     <h4>   {{cart.grandTotal}}</h4>
+     
+      </div>
+    </div>
+  </div>
+  <hr>
+  <!-- <div class="col-6 card shadow my-5 p-3">
+    <h1 class="text-center fw-bolder">Products Details</h1>
+    <h4>Price :${{totalPrice}}</h4>
+    <h2>Discount :50%</h2>
+    <h1>Your Grand Total : $</h1>
+</div> -->
+
+<div class="container" >
+    <div class="row">
+        <div class="col-6">
+            <h1 class="text-center fw-bolder">Product Details</h1>
+            <h4>Price :$999</h4>
+            <h2 class="text-success">Discount: 50%</h2>
+        </div>
+        <div class="col-6 mt-4">
+            <h1>Grand Total :${{totalPrice}}</h1>
+        </div>
+                   
+          <div class="">
+          <button class="btn btn-success m-4 " data-bs-toggle="modal" data-bs-target="#staticBackdrop">Check Out</button>
+          <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="staticBackdropLabel">Check Out Details</h1>
+                  <button type="button" (click)="modalclose()" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <h3 *ngIf="!paymentStatus" style="text-align: center;">Enter Address Details</h3>
+                  <form [formGroup]="paymentFrom" (ngSubmit)="submitForm()" *ngIf="!paymentStatus">
+                    
+                      <div class="mb-3">
+                        <label class="form-label">Name</label>
+                        <input type="text" name="username" formControlName="username" class="form-control" aria-describedby="emailHelp" required>
+                        <div *ngIf="
+                        this.paymentFrom.get('username')?.errors &&
+                        this.paymentFrom.get('username')?.touched
+                      " class="text-danger">
+                                  Invalid Name
+                              </div>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">House Number</label>
+                        <input type="text" name=" housenumber" formControlName="housenumber" class="form-control" required >
+                        <div *ngIf="
+                        this.paymentFrom.get('housenumber')?.errors &&
+                        this.paymentFrom.get('housenumber')?.touched
+                      " class="text-danger">
+                                  Invalid Address
+                              </div>
+                      </div>
+                      <div class="mb-3">
+                        <label  class="form-label">Street Name</label>
+                        <input type="text" name="street" formControlName="street" class="form-control" required >
+                        <div *ngIf="
+                        this.paymentFrom.get('street')?.errors &&
+                        this.paymentFrom.get('street')?.touched
+                      " class="text-danger">
+                                  Invalid Address
+                              </div>
+                      </div>
+                      <div class="mb-3">
+                          <label class="form-label">State</label>
+                          <input type="text" name="state" formControlName="state" class="form-control" required>
+                          <div *ngIf="
+                          this.paymentFrom.get('state')?.errors &&
+                          this.paymentFrom.get('state')?.touched
+                        " class="text-danger">
+                                    Invalid Address
+                                </div>
+                        </div>
+                        <div class="mb-3">
+                          <label  class="form-label">Pincode</label>
+                          <input type="text" name="pincode" formControlName="pincode" class="form-control" required >
+                          <div *ngIf="
+                          this.paymentFrom.get('pincode')?.errors &&
+                          this.paymentFrom.get('pincode')?.touched
+                        " class="text-danger">
+                                    Invalid Pincode
+                                </div>
+                        </div>
+                        <div class="mb-3">
+                          <label class="form-label">Mobile Number</label>
+                          <input type="text" name="mobilenumber" formControlName="mobilenumber" class="form-control" required >
+                          <div *ngIf="
+                          this.paymentFrom.get('mobilenumber')?.errors &&
+                          this.paymentFrom.get('mobilenumber')?.touched
+                        " class="text-danger">
+                                    Invalid Mobile Number
+                                </div>
+                        </div>
+                    
+              
+                
+                
+                <hr>
+                <div >
+                  <h2 class="text-danger">Total Amount:<i class="fa-sharp fa-solid fa-dollar-sign fa-flip text-danger"></i>{{totalPrice}}</h2>
+                  <h1 class="text-info" (click)="offerClicked()">Offers<i class="fa-solid fa-tags fa-fade text-info"></i></h1>
+                  <div  *ngIf="offerClick && !discountStatus">
+                  <img *ngIf="totalPrice>500"(click)="discount(15)" src="https://www.laserclinicsnewzealand.co.nz/contentassets/760b6430155b4412a28c009d61906e84/lca0187_bbs_banner_640x292_3.gif" alt="" width="100%">
+                  <img *ngIf="totalPrice<500" (click)="discount(15)" src="https://interwood.pk/media/wysiwyg/MEGA-SALE-23-KITCHENS-B.gif" alt="" width="100%">
+                </div>
+          <hr></div>
+              <div class="text-center">
+               
+                  <button type="button"class="btn btn-success" (click)="submitForm()">Payment</button>
+                </div>
+      
+                  </form>
+                  <!--user details-->
+                  <div *ngIf="paymentStatus">
+                    <h4>User Address</h4>
+                    <h6>{{username}}</h6>
+                    <!-- <p>{{housenumber}}</p> -->
+                   <div class="text-center me-3">
+                    <button (click)="makepay()" type="button"class="btn btn-success">Procced to pay</button>
+                   
+                  </div>
+                  <div *ngIf="proccedtopay">
+                    <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+
+                  </div>
+                 
+              </div>
+              </div>
+              
+              
+            </div>
+          </div>
+        
+
+
+
+
+
+</div>
+</div>
